@@ -166,7 +166,7 @@ int readChild(long offset, int level)
     cEntry.metaOffset = readInteger(fileBuffer,offset + 8,4);
     cEntry.lastUpdate = readInteger(fileBuffer,offset+12,4)+ baseTime;
     cEntry.numMetaKeys = readInteger(fileBuffer, cEntry.metaOffset,4);
-    if(cEntry.numMetaKeys > 2)cEntry.numMetaKeys=2; // stackoverflow when this value over 2
+    if(cEntry.numMetaKeys > 2)cEntry.numMetaKeys=2; // stack corruption when this value over 2, idk why, but working with this sh*tty fix
     for (int n = 0;n<cEntry.numMetaKeys;n++)
     {
         cEntry.metaList[n] = readMeta(cEntry.metaOffset + 4 + (n * 8));
